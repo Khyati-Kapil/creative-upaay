@@ -1,0 +1,32 @@
+.page { max-width: 1100px; margin: 0 auto; padding: 18px; font-family: system-ui; }
+h1 { margin: 0 0 14px; }
+
+.panel { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; margin: 10px 0; background: #fff; }
+.grid { display: grid; grid-template-columns: 1.2fr .7fr 1.2fr .5fr; gap: 10px; }
+.grid input, .grid select { padding: 10px; border: 1px solid #d1d5db; border-radius: 10px; }
+.grid button { padding: 10px; border: 1px solid #111827; border-radius: 10px; background: #111827; color: white; cursor: pointer; }
+
+.board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+.col { min-height: 400px; }
+.colHead { display:flex; justify-content: space-between; align-items:center; margin-bottom: 10px; }
+.colHead h2 { margin: 0; font-size: 14px; text-transform: uppercase; color: #374151; }
+
+.card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px; background: #f9fafb; margin-bottom: 10px; }
+.cardTop { display:flex; justify-content: space-between; gap: 10px; }
+.title { font-weight: 650; }
+.desc { color: #6b7280; font-size: 13px; margin-top: 4px; }
+
+.meta { display:flex; justify-content: space-between; align-items:center; gap: 10px; margin-top: 10px; }
+.pill { padding: 3px 9px; border-radius: 999px; font-size: 12px; border: 1px solid #d1d5db; }
+.pill.low { background:#ecfdf5; border-color:#a7f3d0; }
+.pill.medium { background:#fffbeb; border-color:#fde68a; }
+.pill.high { background:#fef2f2; border-color:#fecaca; }
+
+.moves { display:flex; gap: 6px; flex-wrap: wrap; }
+.moves button { padding: 6px 8px; border: 1px solid #d1d5db; border-radius: 10px; background: white; cursor: pointer; }
+.danger { padding: 6px 8px; border: 1px solid #ef4444; border-radius: 10px; background: #ef4444; color: white; cursor: pointer; }
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .board { grid-template-columns: 1fr; }
+}
