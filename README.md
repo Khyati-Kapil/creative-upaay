@@ -1,6 +1,6 @@
-# Project M Task Board (Figma UI)
+# Task Board 
 
-Kanban-style task management board that matches the “Project M” Figma layout.
+Task management board that matches the given Figma layout.
 
 ## Tech stack
 - React + TypeScript + Vite
