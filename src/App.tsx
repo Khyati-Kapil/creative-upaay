@@ -55,9 +55,24 @@ function CardMenu(p: {
   onDelete: () => void;
   onDetails: () => void;
 }) {
+  function closeMenu(target: HTMLElement) {
+    (target.closest("details") as HTMLDetailsElement | null)?.removeAttribute("open");
+  }
+
   return (
-    <details style={{ position: "relative" }}>
-      <summary className="ghostBtn" aria-label="Card menu">
+    <details
+      style={{ position: "relative" }}
+      onPointerDown={(e) => {
+        e.stopPropagation();
+      }}
+    >
+      <summary
+        className="ghostBtn"
+        aria-label="Card menu"
+        onPointerDown={(e) => {
+          e.stopPropagation();
+        }}
+      >
         <span className="kebab" aria-hidden="true">
           ⋯
         </span>
@@ -73,15 +88,19 @@ function CardMenu(p: {
           boxShadow: "0 18px 40px rgba(0,0,0,.12)",
           padding: 8,
           minWidth: 160,
-          zIndex: 10
+          zIndex: 120
+        }}
+        onPointerDown={(e) => {
+          e.stopPropagation();
         }}
       >
         <button
           className="controlBtn"
           style={{ width: "100%", justifyContent: "flex-start", display: "flex", padding: "8px 10px" }}
           type="button"
+          onPointerDown={(e) => e.stopPropagation()}
           onClick={(e) => {
-            (e.currentTarget.closest("details") as HTMLDetailsElement | null)?.removeAttribute("open");
+            closeMenu(e.currentTarget);
             p.onDetails();
           }}
         >
@@ -95,7 +114,11 @@ function CardMenu(p: {
             className="controlBtn"
             style={{ width: "100%", justifyContent: "flex-start", display: "flex", padding: "8px 10px" }}
             type="button"
-            onClick={() => p.onMove(s)}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              closeMenu(e.currentTarget);
+              p.onMove(s);
+            }}
             disabled={s === p.current}
           >
             {s === "todo" ? "To Do" : s === "in_progress" ? "On Progress" : "Done"}
@@ -113,7 +136,11 @@ function CardMenu(p: {
             color: "#B91C1C"
           }}
           type="button"
-          onClick={p.onDelete}
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            closeMenu(e.currentTarget);
+            p.onDelete();
+          }}
         >
           Delete
         </button>
@@ -134,8 +161,10 @@ function SortableCard(props: {
   };
 
   return (
-    <div className="taskWrap" ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <div className="taskCard">{props.children}</div>
+    <div className="taskWrap" ref={setNodeRef} style={style}>
+      <div className="taskCard" {...attributes} {...listeners}>
+        {props.children}
+      </div>
     </div>
   );
 }
