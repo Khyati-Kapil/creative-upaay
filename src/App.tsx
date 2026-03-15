@@ -529,30 +529,29 @@ export default function App() {
           <div className="kanban">
             {COLUMNS.map((c) => (
               <div key={c.id} className="kanbanCol">
-                <div className="colHead">
-                  <div className="colHeadLeft">
-                    <span
-                      className={
-                        "dot dot--" + (c.color === "green" ? "green" : c.color === "orange" ? "orange" : "purple")
-                      }
-                      aria-hidden="true"
-                    />
-                    <span className="colTitle">{c.label}</span>
-                    <span className="countPill">{byStatus[c.id].length}</span>
-                  </div>
-                  <AddTaskDialog
-                    defaultStatus={c.id}
-                    trigger={
-                      <button className="addTaskBtn" type="button">
-                        <span className="addTaskBtn__icon" aria-hidden="true">
+                <div className="colHeader">
+                  <div className="colHead">
+                    <div className="colHeadLeft">
+                      <span
+                        className={
+                          "dot dot--" + (c.color === "green" ? "green" : c.color === "orange" ? "orange" : "purple")
+                        }
+                        aria-hidden="true"
+                      />
+                      <span className="colTitle">{c.label}</span>
+                      <span className="countPill">{byStatus[c.id].length}</span>
+                    </div>
+                    <AddTaskDialog
+                      defaultStatus={c.id}
+                      trigger={
+                        <button className={"addCircle addCircle--" + c.color} type="button" aria-label="Add task">
                           <PlusIcon size={18} />
-                        </span>
-                        Add Task
-                      </button>
-                    }
-                  />
+                        </button>
+                      }
+                    />
+                  </div>
+                  <div className={"colBar colBar--" + c.color} />
                 </div>
-                <div className={"colRule colRule--" + c.color} />
 
                 <SortableContext items={byStatus[c.id].map((t) => t.id)} strategy={verticalListSortingStrategy}>
                   <DroppableList id={c.id}>
@@ -579,6 +578,17 @@ export default function App() {
 
                         <div className="cardDesc">{t.description}</div>
 
+                        <div className="cardMid">
+                          <div className="subLabel">
+                            {t.subtasks.length
+                              ? `Subtasks • ${t.subtasks.filter((s) => s.done).length}/${t.subtasks.length} done`
+                              : "Subtasks"}
+                          </div>
+                          <button className="chevBtn" type="button" onClick={() => setDetailsTaskId(t.id)} aria-label="Open details">
+                            <span aria-hidden="true">▾</span>
+                          </button>
+                        </div>
+
                         <div className="cardFooter">
                           <div className="avatars" aria-hidden="true">
                             {Array.from({ length: Math.max(1, Math.min(4, t.assignees)) }).map((_, i) => (
@@ -586,22 +596,23 @@ export default function App() {
                             ))}
                           </div>
                           <div className="meta">
-                            {t.dueDate ? <span>Due {t.dueDate}</span> : null}
+                            {t.dueDate ? <span className="metaItem">Due {t.dueDate}</span> : null}
                             {t.subtasks.length ? (
-                              <span>
+                              <span className="metaItem">
                                 {t.subtasks.filter((s) => s.done).length}/{t.subtasks.length} subtasks
                               </span>
                             ) : null}
-                            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                            <span className="metaItem">
                               <CommentIcon />
                               {t.comments} comments
                             </span>
-                            <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+                            <span className="metaItem">
                               <PaperclipIcon />
                               {t.files} files
                             </span>
                           </div>
                         </div>
+
                       </SortableCard>
                     ))}
                   </DroppableList>

@@ -181,3 +181,33 @@ export function PlusIcon({ size = 18, title }: IconProps) {
     </svg>
   );
 }
+
+export function SearchIcon({ size = 18, title }: IconProps) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden={title ? undefined : true}
+      role={title ? "img" : "presentation"}
+    >
+      {title ? <title>{title}</title> : null}
+      <path
+        d="M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M21 21l-4.35-4.35"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

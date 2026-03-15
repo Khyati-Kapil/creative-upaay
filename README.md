@@ -1,73 +1,50 @@
-# React + TypeScript + Vite
+# Project M Task Board (Figma UI)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Kanban-style task management board that matches the “Project M” Figma layout.
 
-Currently, two official plugins are available:
+## Tech stack
+- React + TypeScript + Vite
+- Redux Toolkit + React Redux
+- `@dnd-kit` drag-and-drop
+- Persistence via `localStorage`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Core features (Level 1)
+- Add tasks in each column (dynamic title/description)
+- Move tasks across columns (drag and drop)
+- Reorder tasks inside a column (drag and drop)
+- Search + filters (status + priority)
 
-## React Compiler
+## Level 2 features implemented (4/6)
+- Due date + reminder + reminder banner (due soon / overdue)
+- Subtasks (add + complete)
+- Customizable task fields (custom priorities + tags)
+- Per-task activity log (captures moves, due date updates, subtasks changes, etc.)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Notes / assumptions
+- Only task title and description are fully dynamic; other UI fields are lightweight/hardcoded for the demo.
+- State is stored in `localStorage` under key `taskboard:v1`.
+- If you change the state schema and see UI issues, clear `taskboard:v1` in DevTools → Application → Local Storage.
 
-## Expanding the ESLint configuration
+## Run locally
+```bash
+npm install
+npm run dev
+```
+Then open the URL shown in the terminal (usually `http://localhost:5173`).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Build
+```bash
+npm run build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deployment (Vercel / Netlify)
+- Build command: `npm run build`
+- Output directory: `dist`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Demo video checklist
+- Add task in each column
+- Drag task across columns + reorder within column
+- Open card menu → Details (due date, reminder, subtasks, activity log)
+- Custom fields (add a priority + tag, then use them when creating a task)
+- Refresh page to show persistence

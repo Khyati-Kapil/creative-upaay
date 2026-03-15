@@ -1,4 +1,4 @@
-import { BellIcon, CalendarIcon } from "./Icons";
+import { BellIcon, CalendarIcon, SearchIcon } from "./Icons";
 
 export function Topbar(props: {
   search: string;
@@ -10,7 +10,9 @@ export function Topbar(props: {
   return (
     <div className="topbarInner">
       <div className="search">
-        <span className="searchIcon" aria-hidden="true" />
+        <span className="searchIcon" aria-hidden="true">
+          <SearchIcon />
+        </span>
         <input
           className="searchInput"
           placeholder="Search for anything..."
